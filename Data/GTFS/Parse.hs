@@ -47,6 +47,9 @@ instance FromField ServiceFlag   where parseField = enumParseField
 instance FromField ExceptionType where parseField = enumParseField
 instance FromField PaymentMethod where parseField = enumParseField
 instance FromField TransferType  where parseField = enumParseField
+instance FromField Timepoint where parseField = enumParseField
+instance FromField WheelchairAccessibility where parseField = enumParseField
+instance FromField BikesAllowed where parseField = enumParseField
 
 instance FromField Date where
   parseField x = parseField x >>= f where
@@ -89,7 +92,9 @@ instance FromNamedRecord Stop where
     m .:? "zone_id" <*>
     m .:? "stop_url" <*>
     m .:? "location_type" <*>
-    m .:? "parent_station"
+    m .:? "parent_station" <*>
+    m .:? "stop_timezone" <*>
+    m .:? "wheelchair_boarding"
 
 instance FromNamedRecord Route where
   parseNamedRecord m = Route <$>
@@ -101,7 +106,8 @@ instance FromNamedRecord Route where
     m .: "route_type" <*>
     m .:? "route_url" <*>
     m .:? "route_color" <*>
-    m .:? "route_text_color"
+    m .:? "route_text_color" <*>
+    m .:? "route_sort_order"
 
 instance FromNamedRecord Trip where
   parseNamedRecord m = Trip <$>
@@ -112,7 +118,9 @@ instance FromNamedRecord Trip where
     m .:? "trip_short_name" <*>
     m .:? "direction_id" <*>
     m .:? "block_id" <*>
-    m .:? "shape_id"
+    m .:? "shape_id" <*>
+    m .:? "wheelchair_accessible" <*>
+    m .:? "bikes_allowed"
 
 instance FromNamedRecord StopTime where
   parseNamedRecord m = StopTime <$>
@@ -124,7 +132,8 @@ instance FromNamedRecord StopTime where
     m .:? "stop_headsign" <*>
     m .:? "pickup_type" <*>
     m .:? "drop_off_type" <*>
-    m .:? "shape_dist_travelled"
+    m .:? "shape_dist_travelled" <*>
+    m .:? "timepoint"
 
 instance FromNamedRecord Calendar where
   parseNamedRecord m = Calendar <$>
@@ -176,7 +185,8 @@ instance FromNamedRecord Frequency where
     m .: "trip_id" <*>
     m .: "start_time" <*>
     m .: "end_time" <*>
-    m .: "headway_secs"
+    m .: "headway_secs" <*>
+    m .:? "exact_times"
 
 instance FromNamedRecord Transfer where
   parseNamedRecord m = Transfer <$>

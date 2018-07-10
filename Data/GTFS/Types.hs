@@ -58,6 +58,20 @@ data TransferType
   | NoTransfer
   deriving (Show, Enum, Bounded, Eq, Ord)
 
+data WheelchairAccessibility
+  = SomeWheelchairAccessibility
+  | NoWheelchairAccessibility
+  deriving (Show, Enum, Bounded, Eq, Ord)
+
+data BikesAllowed
+  = SomeBikesAllowed
+  | NoBikesAllowed
+  deriving (Show, Enum, Bounded, Eq, Ord)
+
+data Timepoint
+  = ApproximateTimepoint
+  | ExactTimepoint
+  deriving (Show, Enum, Bounded, Eq, Ord)
 
 -- * Row types
 
@@ -83,6 +97,8 @@ data Stop = Stop
   , s_stop_url       :: Maybe URL
   , s_location_type  :: Maybe LocationType
   , s_parent_station :: Maybe StopID
+  , s_stop_timezone  :: Maybe Timezone
+  , s_wheelchair_boarding :: Maybe WheelchairAccessibility
   } deriving (Show)
 
 data Route = Route
@@ -95,6 +111,7 @@ data Route = Route
   , r_route_url        :: Maybe URL
   , r_route_color      :: Maybe Color
   , r_route_text_color :: Maybe Color
+  , r_route_sort_order :: Maybe Integer
   } deriving (Show)
 
 data Trip = Trip
@@ -106,6 +123,8 @@ data Trip = Trip
   , t_direction_id    :: Maybe DirectionID
   , t_block_id        :: Maybe BlockID
   , t_shape_id        :: Maybe ShapeID
+  , t_wheelchair_accessible :: Maybe WheelchairAccessibility
+  , t_bikes_allowed :: Maybe BikesAllowed
   } deriving (Show)
 
 data StopTime = StopTime
@@ -118,6 +137,7 @@ data StopTime = StopTime
   , st_pickup_type         :: Maybe OnOffType
   , st_drop_off_type       :: Maybe OnOffType
   , st_shape_dist_traveled :: Maybe Distance
+  , st_timepoint :: Maybe Timepoint
   } deriving (Show)
 
 data Calendar = Calendar
@@ -170,6 +190,7 @@ data Frequency = Frequency
   , fq_start_time   :: Time
   , fq_end_time     :: Time
   , fq_headway_secs :: Seconds
+  , fq_exact_times  :: Maybe Timepoint
   } deriving (Show)
 
 data Transfer = Transfer
