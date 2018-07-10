@@ -68,6 +68,8 @@ data Agency = Agency
   , a_agency_timezone :: Timezone
   , a_agency_lang     :: Maybe Language
   , a_agency_phone    :: Maybe Phone
+  , a_agency_fare_url :: Maybe URL
+  , a_agency_email    :: Maybe Email
   } deriving (Show)
 
 data Stop = Stop
@@ -143,6 +145,7 @@ data FareAttribute = FareAttribute
   , fa_currency_type     :: Currency
   , fa_payment_method    :: PaymentMethod
   , fa_transfers         :: TransferLimit
+  , fa_agency_id         :: Maybe AgencyID
   , fa_transfer_duration :: Maybe Seconds
   } deriving (Show)
 
@@ -222,6 +225,7 @@ type TripID    = String
 type ZoneID    = String
 
 type URL      = String
+type Email    = String
 type Phone    = String
 type Timezone = String
 type Language = String
