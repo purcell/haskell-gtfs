@@ -179,6 +179,15 @@ data Transfer = Transfer
   , x_min_transfer_time :: Maybe Seconds
   } deriving (Show)
 
+data FeedInfo = FeedInfo
+  { fi_feed_publisher_name :: String
+  , fi_feed_publisher_url  :: URL
+  , fi_feed_lang           :: Language
+  , fi_feed_start_date     :: Maybe Date
+  , fi_feed_end_date       :: Maybe Date
+  , fi_feed_version        :: Maybe String
+  } deriving (Show)
+
 
 -- * The feed itself
 
@@ -195,6 +204,7 @@ data Feed = Feed
   , f_shapes          :: [Shape]
   , f_frequencies     :: [Frequency]
   , f_transfers       :: [Transfer]
+  , f_feed_infos      :: [FeedInfo]
   } deriving (Show)
 
 

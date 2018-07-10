@@ -185,6 +185,15 @@ instance FromNamedRecord Transfer where
     m .: "transfer_type" <*>
     m .:? "min_transfer_time"
 
+instance FromNamedRecord FeedInfo where
+  parseNamedRecord m = FeedInfo <$>
+    m .: "feed_publisher_name" <*>
+    m .: "feed_publisher_url" <*>
+    m .: "feed_lang" <*>
+    m .:? "feed_start_date" <*>
+    m .:? "feed_end_date" <*>
+    m .:? "feed_version"
+
 -- | Parse a single GTFS data file.
 --
 -- Since some files are optional, this produces an empty list
@@ -213,6 +222,7 @@ parseFeed d =
        <*> f "trips.txt"          <*> f "stop_times.txt"      <*> f "calendar.txt"
        <*> f "calendar_dates.txt" <*> f "fare_attributes.txt" <*> f "fare_rules.txt"
        <*> f "shapes.txt"         <*> f "frequencies.txt"     <*> f "transfers.txt"
+       <*> f "feed_info.txt"
   where
     f :: (FromNamedRecord a) => String -> IO [a]
     f x = unsafeInterleaveIO . parseFile $ Path.combine d x
