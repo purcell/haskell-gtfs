@@ -24,6 +24,7 @@ import qualified Data.HashMap.Lazy as HM
 import Safe (readMay)
 import Data.List.Split
 import Control.Applicative
+import Network.URI (parseURI, URI)
 import System.Directory
 import System.IO.Unsafe ( unsafeInterleaveIO )
 import qualified Data.ByteString.Lazy.Char8 as BSL8
@@ -50,6 +51,9 @@ instance FromField TransferType  where parseField = enumParseField
 instance FromField Timepoint where parseField = enumParseField
 instance FromField WheelchairAccessibility where parseField = enumParseField
 instance FromField BikesAllowed where parseField = enumParseField
+
+instance FromField URI where
+  parseField f = parseField f >>= maybe (fail "invalid URL") pure . parseURI
 
 instance FromField Date where
   parseField x = parseField x >>= f where

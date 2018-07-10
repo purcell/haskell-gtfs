@@ -33,3 +33,4 @@ library
     , vector >= 0.12
     , safe >= 0.3
     , unordered-containers >= 0.2
+    , network-uri >= 2.6

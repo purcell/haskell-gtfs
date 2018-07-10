@@ -4,6 +4,7 @@ module Data.GTFS.Types
   -- export everything
   where
 
+import Network.URI (URI)
 
 -- * Enums
 
@@ -255,7 +256,7 @@ type StopID    = String
 type TripID    = String
 type ZoneID    = String
 
-type URL      = String
+type URL      = URI
 type Email    = String
 type Phone    = String
 type Timezone = String
